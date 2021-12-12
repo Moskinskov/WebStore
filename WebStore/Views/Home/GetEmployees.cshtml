@@ -1,0 +1,39 @@
+﻿@using WebStore.Model
+@model IEnumerable<WebStore.Model.Employee>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Сотрудники</title>
+</head>
+
+<body>
+
+<h1>сотруднички</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Отчество</th>
+        <th>Возраст</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (Employee employee in Model)
+    {
+        <tr>
+            <th>@employee.Id</th>
+            <th>@employee.LastName</th>
+            <th>@employee.FirstName</th>
+            <th>@employee.Patronymic</th>
+            <th>@employee.Age</th>
+        </tr>
+    }
+    </tbody>
+</table>
+
+</body>
+</html>
