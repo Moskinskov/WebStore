@@ -19,6 +19,7 @@
         <th>Имя</th>
         <th>Отчество</th>
         <th>Возраст</th>
+        <th>Доп.инфо</th>
     </tr>
     </thead>
     <tbody>
@@ -30,6 +31,9 @@
             <th>@employee.FirstName</th>
             <th>@employee.Patronymic</th>
             <th>@employee.Age</th>
+            <th>
+                <a href="~/home/info/@employee.Id">подробнее</a>
+            </th>
         </tr>
     }
     </tbody>
