@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebStore.Views;
+namespace WebStore.Views.Home.Partial;
 
-public class test : PageModel
+public class _RecommendedItems : PageModel
 {
     public void OnGet()
     {
