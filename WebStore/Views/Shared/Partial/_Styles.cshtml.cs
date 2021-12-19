@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebStore.Views.Home;
+namespace WebStore.Views.Shared.Partial;
 
-public class Info : PageModel
+public class _Styles : PageModel
 {
     public void OnGet()
     {
