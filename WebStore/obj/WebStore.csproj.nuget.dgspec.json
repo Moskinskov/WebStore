@@ -37,6 +37,28 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "FontAwesome": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "bootstrap": {
+              "target": "Package",
+              "version": "[5.1.2, )"
+            },
+            "bootstrap-slider": {
+              "target": "Package",
+              "version": "[5.0.13, )"
+            },
+            "gmaps-api-net": {
+              "target": "Package",
+              "version": "[0.32.0, )"
+            },
+            "jQuery": {
+              "target": "Package",
+              "version": "[3.6.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
