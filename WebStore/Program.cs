@@ -1,6 +1,10 @@
+using WebStore.Infrastructure.Convensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
+IServiceCollection services = builder.Services;
+services.AddControllersWithViews(options => { options.Conventions.Add(new TestConvension()); });
+
 
 var app = builder.Build();
 
