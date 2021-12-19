@@ -1,4 +1,5 @@
 using WebStore.Infrastructure.Convensions;
+using WebStore.Infrastructure.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,10 @@ if (app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseWelcomePage("/welcome");
+
+app.UseMiddleware<TestMiddleware>();
 
 // app.MapDefaultControllerRoute();
 app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
