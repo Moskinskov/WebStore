@@ -1,0 +1,21 @@
+﻿@model WebStore.Model.Employee
+
+<div class="container">
+    <head>
+        <title>Детальная информация</title>
+    </head>
+    <body>
+    <div>
+        <h3>Сотрудник @Model.FirstName @Model.LastName</h3>
+        <hr/>
+        <dl class="row">
+            <dt class="col-sm-2">ID @Model.Id</dt>
+            <dt class="col-sm-2">Имя @Model.FirstName</dt>
+            <dt class="col-sm-2">Фамилия @Model.LastName</dt>
+            <dt class="col-sm-2">Отчество @Model.Patronymic</dt>
+            <dt class="col-sm-2">Возраст @Model.Age</dt>
+            <dt class="col-sm-2">Дней в компании @Model.TotalDaysInCompany</dt>
+        </dl>
+    </div>
+    </body>
+</div>
