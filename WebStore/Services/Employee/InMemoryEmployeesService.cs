@@ -4,12 +4,14 @@ namespace WebStore.Services.Employee;
 
 class InMemoryEmployeesService : IEmployeesService
 {
+    private readonly ILogger<InMemoryEmployeesService> logger;
     private readonly List<Model.Employee> employees;
     private int maxFreeId;
 
 
-    public InMemoryEmployeesService()
+    public InMemoryEmployeesService(ILogger<InMemoryEmployeesService> logger)
     {
+        this.logger = logger;
         employees = TestData.Employees.ToList();
         maxFreeId = employees.Count;
     }
@@ -32,6 +34,7 @@ class InMemoryEmployeesService : IEmployeesService
         {
             employee.Id = maxFreeId++;
             employees.Add(employee);
+            logger.LogInformation($"Добавление сотрудника с ID {employee.Id}");
         }
 
         return employee.Id;
@@ -59,9 +62,14 @@ class InMemoryEmployeesService : IEmployeesService
     public bool Delete(int id)
     {
         Model.Employee? employee = GetById(id);
-        if (employee is null) return false;
+        if (employee is null)
+        {
+            logger.LogWarning($"Попытка удалить несуществующего сотрудника");
+            return false;
+        }
 
         employees.Remove(employee);
+        logger.LogInformation($"Удаление сотрудника с ID {id}");
         return true;
     }
 }
