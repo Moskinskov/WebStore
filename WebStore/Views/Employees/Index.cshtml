@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebStore.Model.Employee>
+
+<div class="container">
+    <h3>Сотрудники</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>ID</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Возраст</th>
+            <th>Доп.инфо</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <a class="btn btn-default" asp-action="Edit">Создать карточку сотрудника</a>
+
+        @if (Model.Any())
+        {
+            @foreach (Employee employee in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@employee.Id">
+                            <i class="fa fa-info-circle"></i>
+                        </a>
+                        <a asp-action="Edit" asp-route-id="@employee.Id">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </td>
+                    <td>@employee.Id</td>
+                    <td>@employee.FirstName</td>
+                    <td>@employee.Patronymic</td>
+                    <td>@employee.Age</td>
+                    <td>@employee.LastName</td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@employee.Id">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <p>Нет сотрудников</p>
+        }
+        </tbody>
+    </table>
+
+    <a href="/">На главную</a>
+</div>
