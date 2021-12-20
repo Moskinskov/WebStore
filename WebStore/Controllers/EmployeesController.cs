@@ -25,9 +25,11 @@ public class Employees : Controller
         return model is null ? NotFound() : View(model);
     }
 
-    public IActionResult Edit(int id)
+    public IActionResult Edit(int? id)
     {
-        Employee? model = employeesService.GetById(id);
+        if (id is null) return View(new EmployeeEditViewModel());
+
+        Employee? model = employeesService.GetById((int)id);
 
         if (model is null) return NotFound();
 
@@ -55,7 +57,8 @@ public class Employees : Controller
             Age = viewModel.Age
         };
 
-        if (!employeesService.Edit(employee)) return NotFound();
+        if (employee.Id == 0) employeesService.Add(employee);
+        else if (!employeesService.Edit(employee)) return NotFound();
 
         return RedirectToAction(nameof(Index));
     }

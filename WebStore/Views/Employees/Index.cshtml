@@ -15,28 +15,38 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (Employee employee in Model)
+
+        <a class="btn btn-default" asp-action="Edit">Создать карточку сотрудника</a>
+
+        @if (Model.Any())
         {
-            <tr>
-                <td>
-                    <a asp-action="Details" asp-route-id="@employee.Id">
-                        <i class="fa fa-info-circle"></i>
-                    </a>
-                    <a asp-action="Edit" asp-route-id="@employee.Id">
-                        <i class="fa fa-edit"></i>
-                    </a>
-                </td>
-                <td>@employee.Id</td>
-                <td>@employee.FirstName</td>
-                <td>@employee.Patronymic</td>
-                <td>@employee.Age</td>
-                <td>@employee.LastName</td>
-                <td>
-                    <a asp-action="Delete" asp-route-id="@employee.Id">
-                        <i class="fa fa-trash-o"></i>
-                    </a>
-                </td>
-            </tr>
+            @foreach (Employee employee in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@employee.Id">
+                            <i class="fa fa-info-circle"></i>
+                        </a>
+                        <a asp-action="Edit" asp-route-id="@employee.Id">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </td>
+                    <td>@employee.Id</td>
+                    <td>@employee.FirstName</td>
+                    <td>@employee.Patronymic</td>
+                    <td>@employee.Age</td>
+                    <td>@employee.LastName</td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@employee.Id">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <p>Нет сотрудников</p>
         }
         </tbody>
     </table>
