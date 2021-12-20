@@ -1,35 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebStore.Data;
 using WebStore.Model;
+using WebStore.Services.Employee;
 using WebStore.ViewModels;
 
 namespace WebStore.Controllers;
 
 public class Employees : Controller
 {
-    private readonly IEnumerable<Employee> employees;
+    private readonly IEmployeesService employeesService;
 
-    public Employees()
+    public Employees(IEmployeesService employeesService)
     {
-        employees = TestData.Employees;
+        this.employeesService = employeesService;
     }
 
     public IActionResult Index()
     {
-        return View(employees);
+        return View(employeesService.GetAll());
     }
 
     public IActionResult Details(int id)
     {
-        Employee? model = employees.FirstOrDefault(employee => employee.Id == id);
+        Employee? model = employeesService.GetById(id);
         return model is null ? NotFound() : View(model);
     }
 
-    // public IActionResult Create() => View();
-
     public IActionResult Edit(int id)
     {
-        Employee? model = employees.FirstOrDefault(employee => employee.Id == id);
+        Employee? model = employeesService.GetById(id);
+
+        if (model is null) return NotFound();
 
         EmployeeEditViewModel viewModel = new EmployeeEditViewModel()
         {
@@ -40,21 +40,50 @@ public class Employees : Controller
             Age = model.Age
         };
 
-        return model is null ? NotFound() : View(viewModel);
+        return View(viewModel);
     }
 
+    [HttpPost]
     public IActionResult Edit(EmployeeEditViewModel viewModel)
     {
-        // обработка входящей информации
-        
-        Employee? editable = employees.FirstOrDefault(employee => employee.Id == viewModel.Id);
-        editable.FirstName = viewModel.FirstName;
-        editable.LastName = viewModel.LastName;
-        editable.Patronymic = viewModel.Patronymic;
-        editable.Age = viewModel.Age;
+        var employee = new Employee()
+        {
+            Id = viewModel.Id,
+            FirstName = viewModel.FirstName,
+            LastName = viewModel.LastName,
+            Patronymic = viewModel.Patronymic,
+            Age = viewModel.Age
+        };
+
+        if (!employeesService.Edit(employee)) return NotFound();
 
         return RedirectToAction(nameof(Index));
     }
 
-    public IActionResult Delete(int id) => View();
+    public IActionResult Delete(int id)
+    {
+        if (id < 0) return BadRequest();
+
+        Employee? model = employeesService.GetById(id);
+        if (model is null) return NotFound();
+
+        EmployeeEditViewModel viewModel = new EmployeeEditViewModel()
+        {
+            Id = model.Id,
+            FirstName = model.FirstName,
+            LastName = model.LastName,
+            Patronymic = model.Patronymic,
+            Age = model.Age
+        };
+
+        return View(viewModel);
+    }
+
+    [HttpPost]
+    public IActionResult DeleteConfirmed(int id)
+    {
+        if (!employeesService.Delete(id)) return NotFound();
+
+        return RedirectToAction(nameof(Index));
+    }
 }

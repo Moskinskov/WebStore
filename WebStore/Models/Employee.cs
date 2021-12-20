@@ -2,6 +2,10 @@
 
 public class Employee
 {
+    public Employee()
+    {
+    }
+
     public Employee(int id, string firstName, string lastName, string patronymic, int age, int totalDaysInCompany)
     {
         Id = id;
